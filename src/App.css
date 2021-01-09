@@ -1,0 +1,24 @@
+.pixel {
+  width: 20px;
+  height: 20px;
+}
+
+.row {
+  width: 200px;
+  display: flex;
+}
+
+.avatar {
+  height: 200px;
+  width: 200px;
+}
+
+label {
+  height: 30px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+input {
+  margin-left: 10px;
+}
