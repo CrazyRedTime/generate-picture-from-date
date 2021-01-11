@@ -31,12 +31,12 @@ const Pixel = (props) => {
 const Row = (props) => {
   const row = props.row;
   const key = props.forKey;
-  const firstColor = props.firstColor;
-  const secondColor = props.secondColor;
+  const mainColor = props.mainColor;
+  const backgroundColor = props.backgroundColor;
   return (
     <div className='row'>
     {row.map((item, i) => {
-      const color = item ? firstColor : secondColor;
+      const color = item ? mainColor : backgroundColor;
       return (
         <Pixel key={i +(key*10) + 10} className='pixel' color={color}/>
       )
@@ -75,8 +75,8 @@ class App extends React.Component {
   render () {
     const date = this.state.date.toString().replace(/-/g,'');
     const hash = md5(date).toString();
-    const firstColor = `#${hash.slice(-6).toUpperCase()}`;
-    const secondColor = `#${hash.slice(-12, -6).toUpperCase()}`;
+    const mainColor = `#${hash.slice(-6).toUpperCase()}`;
+    const backgroundColor = `#${hash.slice(-12, -6).toUpperCase()}`;
     const randomArray = makeArray(hash);
 
     return (
@@ -85,8 +85,8 @@ class App extends React.Component {
         Try to change date!
       <input type='date' value={this.state.date} onChange={this.changeDate}></input>
       </label>
-      <div style={{border: `20px solid ${secondColor}`}} className='avatar'>
-      {randomArray.map((item, i) => <Row key={i} row={item} forKey={i} firstColor={firstColor} secondColor={secondColor}/>)}
+      <div style={{border: `20px solid ${backgroundColor}`}} className='avatar'>
+      {randomArray.map((item, i) => <Row key={i} row={item} forKey={i} mainColor={mainColor} backgroundColor={backgroundColor}/>)}
       </div>
       </>
     )
