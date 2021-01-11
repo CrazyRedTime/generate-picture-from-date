@@ -83,7 +83,7 @@ class App extends React.Component {
       <>
       <label>
         Try to change date!
-      <input type='date' value={this.state.date} onChange={this.changeDate}></input>
+      <input type='date' autoFocus={true} value={this.state.date} onChange={this.changeDate}></input>
       </label>
       <div style={{border: `20px solid ${backgroundColor}`}} className='avatar'>
       {randomArray.map((item, i) => <Row key={i} row={item} forKey={i} mainColor={mainColor} backgroundColor={backgroundColor}/>)}
