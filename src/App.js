@@ -1,6 +1,6 @@
 import './App.css';
 import md5 from 'crypto-js/md5';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 
 const makeArray = (seed) => {
   const x = 5;
@@ -45,53 +45,43 @@ const Row = (props) => {
   )
 }
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      date: 0,
-    }
+const App = () => {
+  const today = new Date();
+  let day = today.getDate().toString();
+  if (day.length === 1) {
+    day = '0' + day;
   }
-
-  componentDidMount() {
-    const date = new Date();
-    let day = date.getDate().toString();
-    if (day.length === 1) {
-      day = '0' + day;
-    }
-    let month = (date.getMonth() + 1).toString();
-    if (month.length === 1) {
-      month = '0' + month;
-    }
-    const year = date.getFullYear().toString();
-    const formatDate = `${year}-${month}-${day}`;
-    this.setState({ date: formatDate });
+  let month = (today.getMonth() + 1).toString();
+  if (month.length === 1) {
+    month = '0' + month;
   }
+  const year = today.getFullYear().toString();
+  const formatDate = `${year}-${month}-${day}`;
 
-  changeDate = (e) => {
-    this.setState({ date: e.target.value });
+  const [date, setDate] = useState(formatDate);
+
+  const changeDate = (e) => {
+    setDate(e.target.value);
   };
   
-  render () {
-    const date = this.state.date.toString().replace(/-/g,'');
-    const hash = md5(date).toString();
-    const mainColor = `#${hash.slice(-6).toUpperCase()}`;
-    const backgroundColor = `#${hash.slice(-12, -6).toUpperCase()}`;
-    const randomArray = makeArray(hash);
+  const newDate = date.toString().replace(/-/g,'');
+  const hash = md5(newDate).toString();
+  const mainColor = `#${hash.slice(-6).toUpperCase()}`;
+  const backgroundColor = `#${hash.slice(-12, -6).toUpperCase()}`;
+  const randomArray = makeArray(hash);
 
-    return (
-      <>
-      <label>
-        Try to change date!
-      <input type='date' autoFocus={true} value={this.state.date} onChange={this.changeDate}></input>
-      </label>
-      <div style={{border: `20px solid ${backgroundColor}`}} className='avatar'>
-      {randomArray.map((item, i) => <Row key={i} row={item} forKey={i} mainColor={mainColor} backgroundColor={backgroundColor}/>)}
-      </div>
-      </>
-    )
-  }
-  
+  return (
+    <>
+    <label>
+      Try to change date!
+    <input type='date' autoFocus={true} value={date} onChange={changeDate}></input>
+    </label>
+    <div style={{border: `20px solid ${backgroundColor}`}} className='avatar'>
+    {randomArray.map((item, i) => <Row key={i} row={item} forKey={i} mainColor={mainColor} backgroundColor={backgroundColor}/>)}
+    </div>
+    </>
+  )
 }
+  
 
 export default App;
