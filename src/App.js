@@ -1,6 +1,6 @@
 import './App.css';
 import md5 from 'crypto-js/md5';
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 
 const makeArray = (seed) => {
   const x = 5;
